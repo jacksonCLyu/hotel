@@ -18,8 +18,8 @@ public class UserController {
         return ActionResult.New(userService.getListUser());
     }
     @GetMapping("/getUser/{id}")
-    public UserVO getUser(@PathVariable("id") Integer id) {
-        return userService.getUser(id);
+    public ActionResult<UserVO> getUser(@PathVariable("id") Integer id) {
+        return ActionResult.New(userService.getUser(id));
     }
     @PostMapping("insertUser")
     public Integer insertUser(@RequestBody UserVO vo) {

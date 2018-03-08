@@ -1,13 +1,32 @@
 package com.graduation.design.hotel.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserVO {
+/**
+ * 用户信息实体
+ */
+public class UserVO implements Serializable {
     private Integer id;
+    /**
+     * 账号
+     */
     private String userAccount;
+    /**
+     * 密码
+     */
     private String userPassword;
+    /**
+     * 姓名
+     */
     private String userName;
+    /**
+     * 身份证号
+     */
     private Integer userId;
+    /**
+     * 年龄
+     */
     private Integer userAge;
     private Date crateTime;
     private Date updateTime;
@@ -74,5 +93,19 @@ public class UserVO {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "UserVO{" +
+                "id=" + id +
+                ", userAccount='" + userAccount + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userId=" + userId +
+                ", userAge=" + userAge +
+                ", crateTime=" + crateTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }
