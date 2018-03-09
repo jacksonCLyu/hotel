@@ -16,4 +16,11 @@ public interface IRoomService {
     Integer deleteRoom(Integer id);
 
     Integer updateFlg(Integer id,  Integer flg);
+
+    /**
+     * 根据查询条件筛选
+     * @param vo
+     * @return
+     */
+    RoomInfoVO findRoom(RoomInfoVO vo);
 }

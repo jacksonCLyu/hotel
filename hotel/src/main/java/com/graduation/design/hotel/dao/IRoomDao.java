@@ -19,4 +19,10 @@ public interface IRoomDao {
     void deleteRoom(Integer id);
 
     void updateFlg(@Param("id") Integer id, @Param("flg") Integer flg);
+    /**
+     * 根据查询条件筛选
+     * @param vo
+     * @return
+     */
+    RoomInfoVO findRoom(RoomInfoVO vo);
 }

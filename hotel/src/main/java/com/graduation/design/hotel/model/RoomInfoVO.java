@@ -1,14 +1,13 @@
 package com.graduation.design.hotel.model;
 
-import java.io.Serializable;
+import com.graduation.design.hotel.model.base.BaseVO;
+
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 房间信息实体
  */
-public class RoomInfoVO implements Serializable {
-    private Integer id;
+public class RoomInfoVO extends BaseVO {
     /**
      * 房间编号
      */
@@ -21,19 +20,6 @@ public class RoomInfoVO implements Serializable {
      * 房间标准 1:标间2:大床房3:情侣主题4:豪华总统间
      */
     private Integer standard;
-    private Date crateTime;
-    private Date updateTime;
-    /**
-     * 标记是否被预订'0:未预定1:预订'
-     */
-    private Integer flg;
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getRoomNumber() {
         return roomNumber;
@@ -58,41 +44,12 @@ public class RoomInfoVO implements Serializable {
     public void setStandard(Integer standard) {
         this.standard = standard;
     }
-
-    public Date getCrateTime() {
-        return crateTime;
-    }
-
-    public void setCrateTime(Date crateTime) {
-        this.crateTime = crateTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getFlg() {
-        return flg;
-    }
-
-    public void setFlg(Integer flg) {
-        this.flg = flg;
-    }
-
     @Override
     public String toString() {
         return "RoomInfoVO{" +
-                "id=" + id +
-                ", roomNumber=" + roomNumber +
+                "roomNumber=" + roomNumber +
                 ", price=" + price +
                 ", standard=" + standard +
-                ", crateTime=" + crateTime +
-                ", updateTime=" + updateTime +
-                ", flg=" + flg +
                 '}';
     }
 }

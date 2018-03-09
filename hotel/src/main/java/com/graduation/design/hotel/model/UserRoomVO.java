@@ -1,12 +1,11 @@
 package com.graduation.design.hotel.model;
 
-import java.io.Serializable;
+import com.graduation.design.hotel.model.base.BaseVO;
 
 /**
  * 用户与房间的关系
  */
-public class UserRoomVO implements Serializable{
-    private Integer id;
+public class UserRoomVO extends BaseVO{
     /**
      * 用户的ID
      */
@@ -15,14 +14,6 @@ public class UserRoomVO implements Serializable{
      * 房间的ID
      */
     private Integer roomId;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getUserId() {
         return userId;
@@ -43,8 +34,7 @@ public class UserRoomVO implements Serializable{
     @Override
     public String toString() {
         return "UserRoomVO{" +
-                "id=" + id +
-                ", userId=" + userId +
+                "userId=" + userId +
                 ", roomId=" + roomId +
                 '}';
     }

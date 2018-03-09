@@ -31,3 +31,15 @@ CREATE TABLE `user_room` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与房间的关系';
 
+CREATE TABLE `order_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户的ID',
+  `price` decimal(10,2) NOT NULL COMMENT '房间价格',
+  `check_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '入住时间',
+  `leave_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '离开时间',
+  `room_number` int(10) NOT NULL COMMENT '房间编号',
+  `crate_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表信息表';
+

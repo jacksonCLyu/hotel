@@ -43,4 +43,10 @@ public class RoomServiceImpl implements IRoomService{
         roomDao.updateFlg(id,flg);
         return id;
     }
+
+    @Override
+    public RoomInfoVO findRoom(RoomInfoVO vo) {
+        return roomDao.findRoom(vo);
+    }
+
 }

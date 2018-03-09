@@ -14,10 +14,14 @@
         id,room_number,price,standard,crate_time,update_time,flg
     </sql>
     <select id="getListRoom" resultMap="roomVoMap">
-        select <include refid="userSql"/> from room_info;
+        select
+        <include refid="roomSql"/>
+        from room_info;
     </select>
     <select id="getRoom" resultMap="roomVoMap" parameterType="int">
-        select <include refid="userSql"/> from room_info WHERE id=#{id};
+        select
+        <include refid="roomSql"/>
+        from room_info WHERE id=#{id};
     </select>
     <select id="insertRoom" parameterType="RoomInfoVO" resultType="int">
         INSERT INTO room_info (room_number,price,standard,crate_time)
@@ -49,4 +53,23 @@
     <update id="updateFlg">
         UPDATE room_info SET flg=#{flg} where id = #{id}
     </update>
+    <select id="findRoom" resultMap="roomVoMap" parameterType="RoomInfoVO">
+        select
+        <include refid="roomSql"/>
+        from room_info
+        <where>
+            <if test="roomNumber != null and roomNumber != ''">
+                 room_number=!{roomNumber}
+            </if>
+            <if test="price != null and price != ''">
+                and price=!{price}
+            </if>
+            <if test="standard != null ">
+                and standard=!{standard}
+            </if>
+            <if test="flg != null ">
+                and flg=!{flg}
+            </if>
+        </where>
+    </select>
 </mapper>
