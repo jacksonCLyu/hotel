@@ -13,13 +13,16 @@ CREATE TABLE `user` (
 
 CREATE TABLE `room_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `room_number` int(10) NOT NULL,
+  `room_number` int(10) NOT NULL COMMENT '房间编号',
   `price` decimal(10,2) NOT NULL COMMENT '房间价格',
   `standard` tinyint(4) NOT NULL COMMENT '房间标准:1:标间2:大床房3:情侣主题4:豪华总统间',
   `crate_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `flg` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:未预定1:预订',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='房间信息';
+
+
 
 CREATE TABLE `user_room` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

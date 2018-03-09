@@ -11,7 +11,9 @@ public interface IRoomService {
 
     Integer insertRoom(RoomInfoVO vo);
 
-    Integer updateRoom(RoomInfoVO vo);
+    RoomInfoVO updateRoom(RoomInfoVO vo);
 
-    void deleteRoom(Integer id);
+    Integer deleteRoom(Integer id);
+
+    Integer updateFlg(Integer id,  Integer flg);
 }

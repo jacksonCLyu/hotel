@@ -1,6 +1,7 @@
 package com.graduation.design.hotel.dao;
 
 import com.graduation.design.hotel.model.RoomInfoVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface IRoomDao {
     Integer updateRoom(RoomInfoVO vo);
 
     void deleteRoom(Integer id);
+
+    void updateFlg(@Param("id") Integer id, @Param("flg") Integer flg);
 }

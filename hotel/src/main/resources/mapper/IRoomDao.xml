@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.graduation.design.hotel.dao.IRoomDao">
-
+    <resultMap id="roomVoMap" type="RoomInfoVO">
+        <id column="id" property="id"></id>
+        <result column="room_number" property="roomNumber"></result>
+        <result column="price" property="price"></result>
+        <result column="standard" property="standard"></result>
+        <result column="crate_time" property="crateTime"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="flg" property="flg"></result>
+    </resultMap>
+    <sql id="roomSql">
+        id,room_number,price,standard,crate_time,update_time,flg
+    </sql>
+    <select id="getListRoom" resultMap="roomVoMap">
+        select <include refid="userSql"/> from room_info;
+    </select>
+    <select id="getRoom" resultMap="roomVoMap" parameterType="int">
+        select <include refid="userSql"/> from room_info WHERE id=#{id};
+    </select>
+    <select id="insertRoom" parameterType="RoomInfoVO" resultType="int">
+        INSERT INTO room_info (room_number,price,standard,crate_time)
+        values (#{roomNumber}, #{price}, #{standard},NOW());
+        SELECT LAST_INSERT_ID();
+    </select>
+    <update id="updateRoom" parameterType="RoomInfoVO">
+        UPDATE room_info
+        <set>
+            <if test="roomNumber != null">
+                room_number = #{roomNumber},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="standard != null">
+                standard = #{standard},
+            </if>
+            <if test="flg != null">
+                flg = #{flg},
+            </if>
+            update_time=NOW()
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteRoom" parameterType="int">
+        DELETE FROM  room_info WHERE id=#{id}
+    </delete>
+    <update id="updateFlg">
+        UPDATE room_info SET flg=#{flg} where id = #{id}
+    </update>
 </mapper>

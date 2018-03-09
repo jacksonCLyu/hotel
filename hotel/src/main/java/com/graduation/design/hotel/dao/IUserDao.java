@@ -9,9 +9,14 @@ import java.util.List;
 @Repository
 public interface IUserDao {
     List<UserVO> getListUser();
+
     UserVO getUser(Integer id);
+
     Integer insertUser(UserVO vo);
+
     Integer updateUser(UserVO vo);
-    void  deleteUser(Integer id);
-    Integer getAdminUser(@Param("userAccount") String name, @Param("userPassword")String password);
+
+    void deleteUser(Integer id);
+
+    UserVO getAdminUser(@Param("userAccount") String name, @Param("userPassword") String password);
 }

@@ -28,10 +28,11 @@
         WHERE
         id=#{id}
     </select>
-    <insert id="insertUser" parameterType="UserVO">
+    <select id="insertUser" parameterType="UserVO" resultType="int">
         INSERT INTO user (user_account,user_password,user_id,user_name,user_age,crate_time)
-        values (#{userAccount}, #{userPassword}, #{userId},#{userName}, #{userAge},NOW())
-    </insert>
+        values (#{userAccount}, #{userPassword}, #{userId},#{userName}, #{userAge},NOW());
+        SELECT LAST_INSERT_ID() ;
+    </select>
     <update id="updateUser" parameterType="UserVO">
         UPDATE user
         <set>
@@ -54,7 +55,7 @@
     <delete id="deleteUser" parameterType="int">
         DELETE FROM  user WHERE id=#{id}
     </delete>
-    <select id="getAdminUser" resultType="int">
-        SELECT COUNT(*) FROM user WHERE  user_account=#{userAccount} AND  user_password=#{userPassword}
+    <select id="getAdminUser" resultType="UserVO">
+        SELECT <include refid="userSql"/> FROM user WHERE  user_account=#{userAccount} AND  user_password=#{userPassword}
     </select>
 </mapper>

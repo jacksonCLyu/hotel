@@ -29,17 +29,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Integer updateUser(UserVO vo) {
-        return userDao.updateUser(vo);
+    public UserVO updateUser(UserVO vo) {
+        userDao.updateUser(vo);
+        return vo;
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public Integer deleteUser(Integer id) {
         userDao.deleteUser(id);
+        return id;
     }
 
     @Override
-    public Integer getAdminUser(String userAccount, String userPassword) {
+    public UserVO getAdminUser(String userAccount, String userPassword) {
         return userDao.getAdminUser(userAccount, userPassword);
     }
 }

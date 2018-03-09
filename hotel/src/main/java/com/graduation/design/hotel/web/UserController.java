@@ -21,17 +21,17 @@ public class UserController {
     public ActionResult<UserVO> getUser(@PathVariable("id") Integer id) {
         return ActionResult.New(userService.getUser(id));
     }
-    @PostMapping("insertUser")
-    public Integer insertUser(@RequestBody UserVO vo) {
-        return userService.insertUser(vo);
+    @PostMapping("/insertUser")
+    public ActionResult<Integer> insertUser(@RequestBody UserVO vo) {
+        return ActionResult.New(userService.insertUser(vo));
     }
     @PutMapping("/updateUser/{id}")
-    public Integer updateUser(@PathVariable("id") Integer id,@RequestBody UserVO vo) {
+    public ActionResult<UserVO> updateUser(@PathVariable("id") Integer id,@RequestBody UserVO vo) {
         vo.setUserId(id);
-        return userService.updateUser(vo);
+        return ActionResult.New(userService.updateUser(vo));
     }
     @DeleteMapping("/deleteUser/{id}")
-    public void deleteUser(@PathVariable("id") Integer id) {
-        userService.deleteUser(id);
+    public ActionResult<Integer> deleteUser(@PathVariable("id") Integer id) {
+        return ActionResult.New(userService.deleteUser(id));
     }
 }

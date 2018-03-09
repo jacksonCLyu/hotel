@@ -27,12 +27,20 @@ public class RoomServiceImpl implements IRoomService{
     }
 
     @Override
-    public Integer updateRoom(RoomInfoVO vo) {
-        return roomDao.updateRoom(vo);
+    public RoomInfoVO updateRoom(RoomInfoVO vo) {
+        roomDao.updateRoom(vo);
+        return vo;
     }
 
     @Override
-    public void deleteRoom(Integer id) {
+    public Integer deleteRoom(Integer id) {
         roomDao.deleteRoom(id);
+        return id;
+    }
+
+    @Override
+    public Integer updateFlg(Integer id, Integer flg) {
+        roomDao.updateFlg(id,flg);
+        return id;
     }
 }

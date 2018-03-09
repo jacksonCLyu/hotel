@@ -23,7 +23,10 @@ public class RoomInfoVO implements Serializable {
     private Integer standard;
     private Date crateTime;
     private Date updateTime;
-
+    /**
+     * 标记是否被预订'0:未预定1:预订'
+     */
+    private Integer flg;
     public Integer getId() {
         return id;
     }
@@ -72,6 +75,14 @@ public class RoomInfoVO implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Integer getFlg() {
+        return flg;
+    }
+
+    public void setFlg(Integer flg) {
+        this.flg = flg;
+    }
+
     @Override
     public String toString() {
         return "RoomInfoVO{" +
@@ -81,6 +92,7 @@ public class RoomInfoVO implements Serializable {
                 ", standard=" + standard +
                 ", crateTime=" + crateTime +
                 ", updateTime=" + updateTime +
+                ", flg=" + flg +
                 '}';
     }
 }

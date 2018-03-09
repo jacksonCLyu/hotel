@@ -21,17 +21,21 @@ public class RoomController {
     public ActionResult<RoomInfoVO> getRoom(@PathVariable("id") Integer id) {
         return ActionResult.New(roomService.getRoom(id));
     }
-    @PostMapping("insertRoom")
-    public Integer insertRoom(@RequestBody RoomInfoVO vo) {
-        return roomService.insertRoom(vo);
+    @PostMapping("/insertRoom")
+    public ActionResult<Integer> insertRoom(@RequestBody RoomInfoVO vo) {
+        return ActionResult.New(roomService.insertRoom(vo));
     }
     @PutMapping("/updateRoom/{id}")
-    public Integer updateRoom(@PathVariable("id") Integer id,@RequestBody RoomInfoVO vo) {
+    public ActionResult<RoomInfoVO> updateRoom(@PathVariable("id") Integer id,@RequestBody RoomInfoVO vo) {
         vo.setId(id);
-        return roomService.updateRoom(vo);
+        return ActionResult.New(roomService.updateRoom(vo));
     }
     @DeleteMapping("/deleteRoom/{id}")
-    public void deleteRoom(@PathVariable("id") Integer id) {
-        roomService.deleteRoom(id);
+    public ActionResult<Integer> deleteRoom(@PathVariable("id") Integer id) {
+        return ActionResult.New(roomService.deleteRoom(id));
+    }
+    @PutMapping("/updateRoomFlg/{id}")
+    public ActionResult<Integer> updateRoomFlg(@PathVariable("id") Integer id,@RequestBody Integer flg) {
+        return ActionResult.New(roomService.updateFlg(id,flg));
     }
 }

@@ -11,9 +11,9 @@ public interface IUserService {
 
     Integer insertUser(UserVO vo);
 
-    Integer updateUser(UserVO vo);
+    UserVO updateUser(UserVO vo);
 
-    void deleteUser(Integer id);
+    Integer deleteUser(Integer id);
 
-    Integer getAdminUser(String userAccount, String userPassword);
+    UserVO getAdminUser(String userAccount, String userPassword);
 }
