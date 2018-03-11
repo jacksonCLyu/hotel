@@ -3,7 +3,7 @@ package com.graduation.design.hotel.model.base;
 public class ActionResult<T> {
     private Integer code;
     private String error;
-    private T date;
+    private T data;
     public static <T>ActionResult<T> New(int code, String message){
         ActionResult<T> ret = new ActionResult<>();
         ret.setCode(code);
@@ -13,7 +13,7 @@ public class ActionResult<T> {
 
     public static <T> ActionResult<T> New(T data) {
         ActionResult<T> ret = new ActionResult<T>();
-        ret.setDate(data);
+        ret.setData(data);
         ret.setCode(0);
         return ret;
     }
@@ -33,11 +33,11 @@ public class ActionResult<T> {
         this.error = error;
     }
 
-    public T getDate() {
-        return date;
+    public T getData() {
+        return data;
     }
 
-    public void setDate(T date) {
-        this.date = date;
+    public void setData(T data) {
+        this.data = data;
     }
 }

@@ -27,7 +27,7 @@ public class UserController {
     }
     @PutMapping("/updateUser/{id}")
     public ActionResult<UserVO> updateUser(@PathVariable("id") Integer id,@RequestBody UserVO vo) {
-        vo.setUserId(id);
+        vo.setId(id);
         return ActionResult.New(userService.updateUser(vo));
     }
     @DeleteMapping("/deleteUser/{id}")

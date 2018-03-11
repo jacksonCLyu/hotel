@@ -1,7 +1,10 @@
 package com.graduation.design.hotel.web;
 
+import com.alibaba.fastjson.JSONObject;
+import com.graduation.design.hotel.model.MenuVO;
 import com.graduation.design.hotel.model.UserVO;
 import com.graduation.design.hotel.model.base.ActionResult;
+import com.graduation.design.hotel.service.IMenuService;
 import com.graduation.design.hotel.service.IUserService;
 import com.graduation.design.hotel.util.SessionHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
 public class LoginController {
     @Autowired
     private IUserService userService;
-
-    @RequestMapping("/login")
+    @Autowired
+    private IMenuService menuService;
+    @RequestMapping("/Login")
     public ActionResult<Integer> login(String userAccount, String password) {
         UserVO user = userService.getAdminUser(userAccount, password);
         if (null == user) {
@@ -39,5 +44,14 @@ public class LoginController {
             response.addCookie(cookie);
         }
         return new ModelAndView("redirect:/login.html");
+    }
+    @GetMapping(value = "/detail")
+    public JSONObject duseDetail(){
+        JSONObject json=new JSONObject();
+        UserVO user=SessionHolder.getLoginUser();
+        List<MenuVO> list=menuService.getListMenu(user.getFlg());
+        json.put("code",0);
+        json.put("data",list);
+        return json;
     }
 }

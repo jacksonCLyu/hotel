@@ -10,7 +10,7 @@ public class PageResult<T> extends ActionResult<List<T>>
     {
         PageResult<T> result = new PageResult<T>();
         result.setCode(0);
-        result.setDate(data);
+        result.setData(data);
         result.setCount(count);
         return result;
     }

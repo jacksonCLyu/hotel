@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.graduation.design.hotel.dao.IMenuDao">
+    <select id="getListMenu" resultType="MenuVO" parameterType="int">
+        SELECT  id,menu_name AS menuName,menu_url AS menuUrl,menu_uri AS menuUri,menu_flg AS menuFlg FROM  menu WHERE menu_flg=#{menuFlg} OR menu_flg=2
+    </select>
+</mapper>
