@@ -11,12 +11,15 @@ export default {
     },
     effects: {
         *listInit({ payload }, { call, put }) {
-            const  {data}=yield call(userDetail);
-            sessionStorage.setItem('userMenu',JSON.stringify(data));
+            const  data=yield call(userDetail);
+            const userMenu=data.userMenu
+            console.log(userMenu)
+            sessionStorage.setItem('userMenu',JSON.stringify(data.userMenu));
+            sessionStorage.setItem('user',JSON.stringify(data.user));
             yield put({
                 type: 'listState',
                 payload: {
-                    data
+                    userMenu
                 },
             });
         },

@@ -69,7 +69,7 @@
     <delete id="deleteUser" parameterType="int">
         DELETE FROM  user WHERE id=#{id}
     </delete>
-    <select id="getAdminUser" resultType="UserVO">
+    <select id="getAdminUser" resultMap="userVOMap">
         SELECT
         <include refid="userSql"/>
         FROM user WHERE user_account=#{userAccount} AND user_password=#{userPassword}

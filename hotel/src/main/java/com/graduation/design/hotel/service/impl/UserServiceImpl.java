@@ -47,6 +47,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserVO getAdminUser(String userAccount, String userPassword) {
+        UserVO user= userDao.getAdminUser(userAccount, userPassword);
         return userDao.getAdminUser(userAccount, userPassword);
     }
 }

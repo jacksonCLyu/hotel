@@ -16,6 +16,7 @@ public class OrderInfoController {
 
     @GetMapping("/getListOrderInfo")
     public ActionResult<List<OrderInfoVO>> getListOrderInfo() {
+        List<OrderInfoVO> list = orderInfoServic.getListOrderInfo();
         return ActionResult.New(orderInfoServic.getListOrderInfo());
     }
 

@@ -20,6 +20,10 @@ public class RoomInfoVO extends BaseVO {
      * 房间标准 1:标间2:大床房3:情侣主题4:豪华总统间
      */
     private Integer standard;
+    /**
+     * 房间状态1:未预定2预订
+     */
+    private Integer flg;
 
     public String getRoomNumber() {
         return roomNumber;
@@ -44,12 +48,22 @@ public class RoomInfoVO extends BaseVO {
     public void setStandard(Integer standard) {
         this.standard = standard;
     }
+
+    public Integer getFlg() {
+        return flg;
+    }
+
+    public void setFlg(Integer flg) {
+        this.flg = flg;
+    }
+
     @Override
     public String toString() {
         return "RoomInfoVO{" +
-                "roomNumber=" + roomNumber +
+                "roomNumber='" + roomNumber + '\'' +
                 ", price=" + price +
                 ", standard=" + standard +
+                ", flg=" + flg +
                 '}';
     }
 }

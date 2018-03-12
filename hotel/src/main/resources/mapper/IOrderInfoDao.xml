@@ -11,9 +11,11 @@
         <result column="room_number" property="roomNumber"></result>
         <result column="crate_time" property="crateTime"></result>
         <result column="update_time" property="updateTime"></result>
+        <result column="flg" property="flg"></result>
+        <result column="room_prick" property="roomPrick"></result>
     </resultMap>
     <sql id="orderInfo">
-        o.id,o.user_id,u.user_name,o.price,o.check_time,o.leave_time,o.room_number,o.crate_time,o.update_time
+        o.id,o.user_id,u.user_name,o.price,o.check_time,o.leave_time,o.room_number,o.crate_time,o.update_time,o.flg,o.room_prick
     </sql>
     <select id="getListOrderInfo" resultMap="OrderInfoVoMap">
         select
@@ -25,11 +27,10 @@
         <include refid="orderInfo"/>
         from order_info order_info o left join user u on o.user_id=u.id WHERE id=#{id};
     </select>
-    <select id="insertOrderInfo" parameterType="OrderInfoVO" resultType="int">
-        INSERT INTO order_info (user_id,price,check_time,leave_time,room_number,crate_time)
-        values (#{userId}, #{price}, #{checkTime},#{leaveTime},#{roomNumber},NOW());
-        SELECT LAST_INSERT_ID();
-    </select>
+    <insert id="insertOrderInfo" parameterType="OrderInfoVO" >
+        INSERT INTO order_info (user_id,price,check_time,leave_time,room_number,crate_time,flg,room_prick)
+        values (#{userId}, #{price}, #{checkTime},#{leaveTime},#{roomNumber},NOW(),1,#{roomPrick});
+    </insert>
     <update id="updateOrderInfo" parameterType="OrderInfoVO">
         UPDATE order_info
         <set>

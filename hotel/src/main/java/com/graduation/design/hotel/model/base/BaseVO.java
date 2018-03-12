@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class BaseVO implements Serializable {
-    private Integer id;
-    private Date crateTime;
-    private Date updateTime;
+    protected Integer id;
+    protected Date crateTime;
+    protected Date updateTime;
 
     public Integer getId() {
         return id;

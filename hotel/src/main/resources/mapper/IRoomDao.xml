@@ -23,11 +23,10 @@
         <include refid="roomSql"/>
         from room_info WHERE id=#{id};
     </select>
-    <select id="insertRoom" parameterType="RoomInfoVO" resultType="int">
-        INSERT INTO room_info (room_number,price,standard,crate_time)
-        values (#{roomNumber}, #{price}, #{standard},NOW());
-        SELECT LAST_INSERT_ID();
-    </select>
+    <insert id="insertRoom" parameterType="RoomInfoVO" >
+        INSERT INTO room_info (room_number,price,standard,crate_time,flg)
+        values (#{roomNumber}, #{price}, #{standard},NOW(),1);
+    </insert>
     <update id="updateRoom" parameterType="RoomInfoVO">
         UPDATE room_info
         <set>

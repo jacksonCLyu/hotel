@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'dva';
-import {  Table, Button, Input, Form } from 'antd';
+import {  Table, Button, Input, Form,Popconfirm ,Tag} from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import MainLayout from '../MainLayout';
 import Popover from 'antd/lib/popover';
+import { dataDict } from '../../utils/dataDict';
 const FormItem = Form.Item;
 class OrderList extends React.Component {
 
@@ -55,12 +56,32 @@ class OrderList extends React.Component {
             {
                 title: '入住时间',
                 dataIndex: 'checkTime',
-                key: 'checkTime'
+                key: 'checkTime',
+                render:(text, record)=>{
+                    return text.slice(0,10)
+                }
             },
             {
                 title: '离开时间',
                 dataIndex: 'leaveTime',
-                key: 'leaveTime'
+                key: 'leaveTime',
+                render:(text, record)=>{
+                    return text.slice(0,10)
+                }
+            },
+            {
+                title: '状态',
+                dataIndex: 'flg',
+                key: 'flg',
+                render: (text, record) => {
+                    const orderFlg = dataDict("orderFlg", text)
+                    return (
+                        <div>
+                            <Tag>
+                                {orderFlg}
+                            </Tag>
+                        </div>)
+                }
             },
             {
                 title: '操作',

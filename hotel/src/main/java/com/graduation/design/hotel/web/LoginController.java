@@ -31,6 +31,8 @@ public class LoginController {
         if (null == user) {
             return ActionResult.New(1, "账号或密码错误");
         } else {
+            //密码赋值空避免密码泄露
+            user.setUserPassword(null);
             SessionHolder.setLoginUser(user);
             return ActionResult.New(0);
         }
@@ -51,7 +53,8 @@ public class LoginController {
         UserVO user=SessionHolder.getLoginUser();
         List<MenuVO> list=menuService.getListMenu(user.getFlg());
         json.put("code",0);
-        json.put("data",list);
+        json.put("userMenu",list);
+        json.put("user",user);
         return json;
     }
 }

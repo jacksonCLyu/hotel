@@ -22,6 +22,10 @@ public class OrderInfoVO extends BaseVO{
      */
     private BigDecimal price;
     /**
+     * 房间价格
+     */
+    private BigDecimal roomPrick;
+    /**
      * 入住时间
      */
     private Date checkTime;
@@ -33,6 +37,10 @@ public class OrderInfoVO extends BaseVO{
      * 房间编号
      */
     private String roomNumber;
+    /**
+     * 订单状态1:待支付,2:已支付
+     */
+    private Integer flg;
 
     public Integer getUserId() {
         return userId;
@@ -82,15 +90,33 @@ public class OrderInfoVO extends BaseVO{
         this.userName = userName;
     }
 
+    public Integer getFlg() {
+        return flg;
+    }
+
+    public void setFlg(Integer flg) {
+        this.flg = flg;
+    }
+
+    public BigDecimal getRoomPrick() {
+        return roomPrick;
+    }
+
+    public void setRoomPrick(BigDecimal roomPrick) {
+        this.roomPrick = roomPrick;
+    }
+
     @Override
     public String toString() {
         return "OrderInfoVO{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", price=" + price +
+                ", roomPrick=" + roomPrick +
                 ", checkTime=" + checkTime +
                 ", leaveTime=" + leaveTime +
                 ", roomNumber='" + roomNumber + '\'' +
+                ", flg=" + flg +
                 '}';
     }
 }

@@ -10,6 +10,7 @@ import "babel-polyfill";
 import { UserList } from './system/UserList';
 import { AdminList } from './system/AdminList';
 import { OrderList } from './system/OrderList';
+import { RoomList } from './system/RoomList';
 class MainLayout extends React.Component {
     // 退出
     logout = () => {
@@ -17,9 +18,6 @@ class MainLayout extends React.Component {
         sessionStorage.removeItem('userRedisResource');
         sessionStorage.removeItem('userMenu')
         window.location = '/loginOut'
-    }
-    aClick() {
-        window.location = "/indexOld";
     }
     isMenu = (menu) => {
         if (menu == undefined || menu == null || menu.length == 0) {
