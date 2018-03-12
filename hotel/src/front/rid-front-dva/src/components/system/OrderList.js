@@ -49,7 +49,7 @@ class OrderList extends React.Component {
                 key: 'roomNumber'
             },
             {
-                title: '房间价格',
+                title: '订单价格',
                 dataIndex: 'price',
                 key: 'price'
             },
