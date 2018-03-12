@@ -19,4 +19,6 @@ public interface IUserDao {
     void deleteUser(Integer id);
 
     UserVO getAdminUser(@Param("userAccount") String name, @Param("userPassword") String password);
+
+    List<UserVO> getAdminList();
 }

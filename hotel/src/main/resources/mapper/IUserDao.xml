@@ -16,6 +16,14 @@
     <sql id="userSql">
        id,user_account,user_password,user_id,user_name,user_age,crate_time,update_time,flg,user_phone
     </sql>
+
+    <select id="getAdminList" resultMap="userVOMap">
+        SELECT
+        <include refid="userSql"/>
+        FROM
+        user
+        WHERE flg=1
+    </select>
     <select id="getListUser" resultMap="userVOMap">
         SELECT
         <include refid="userSql"/>

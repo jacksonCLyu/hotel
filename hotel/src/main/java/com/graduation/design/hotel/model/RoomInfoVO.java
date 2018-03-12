@@ -11,7 +11,7 @@ public class RoomInfoVO extends BaseVO {
     /**
      * 房间编号
      */
-    private Integer roomNumber;
+    private String roomNumber;
     /**
      * 价格
      */
@@ -21,11 +21,11 @@ public class RoomInfoVO extends BaseVO {
      */
     private Integer standard;
 
-    public Integer getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(Integer roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 

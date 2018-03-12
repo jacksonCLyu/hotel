@@ -7,6 +7,8 @@ import java.util.List;
 public interface IUserService {
     List<UserVO> getListUser();
 
+    List<UserVO> getAdminList();
+
     UserVO getUser(Integer id);
 
     Integer insertUser(UserVO vo);

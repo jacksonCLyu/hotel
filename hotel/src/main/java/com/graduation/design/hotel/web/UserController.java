@@ -17,6 +17,10 @@ public class UserController {
     public ActionResult<List<UserVO>> getListUser() {
         return ActionResult.New(userService.getListUser());
     }
+    @GetMapping("/getAdminList")
+    public ActionResult<List<UserVO>> getAdminList() {
+        return ActionResult.New(userService.getAdminList());
+    }
     @GetMapping("/getUser/{id}")
     public ActionResult<UserVO> getUser(@PathVariable("id") Integer id) {
         return ActionResult.New(userService.getUser(id));

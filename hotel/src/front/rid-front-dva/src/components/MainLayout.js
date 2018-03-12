@@ -4,38 +4,12 @@ import { Link, Route, Switch } from 'dva/router';
 import dynamic from 'dva/dynamic';
 import styles from './MainLayout.css';
 import { connect } from 'dva';
-
-import { MySqlExample } from './system/MySqlExample';
-import { TheServer } from './system/TheServer';
-import { FlowTemplate } from './system/FlowTemplate';
-import { TaskFlow } from './system/TaskFlow';
-import { addFlowTemplate } from './system/taskFlow/AddFlowTemplate';
-import { addFlow } from './system/taskFlow/AddFlow';
-import { PublicAllocation } from './system/PublicAllocation';
-import { DbResource } from './system/DbResource';
-import { UserManagement } from './system/UserManagement';
-import { LogManagement } from './system/LogManagement';
-import { RoleManagement } from './system/RoleManagement';
-import { RedisManagement } from './system/RedisManagement';
-import { SqlDBAExamine } from './sqlExamine/SqlDBAExamine';
-import { SqlDEVPExamine } from './sqlExamine/SqlDEVPExamine';
-import { ExampleLog } from './system/example/ExampleLog';
-import { Db } from './system/resource/Db';
-import { UserEdit } from './system/user/UserEdit';
-import { GrantRelation } from './system/user/GrantRelation';
-import { RoleSee } from './system/role/RoleSee';
-import { Redis } from './system/resource/Redis';
-import { DbStatus } from './dbStatus/DbStatus';
-import { ExecuteSQL } from './executeSQL/ExecuteSQL';
-import { OperationLog } from './system/OperationLog';
-import { Dbquery } from './dbquery/Dbquery';
-import { RedisQuery } from './redisQuery/RedisQuery';
-import { SeeInformationDBA } from './sqlExamine/SqlDBA/SeeInformationDBA';
-import { SeeInformationDEVP } from './sqlExamine/SqlDEVPE/SeeInformationDEVP';
 import "babel-polyfill";
 
 //以下是新系统
 import { UserList } from './system/UserList';
+import { AdminList } from './system/AdminList';
+import { OrderList } from './system/OrderList';
 class MainLayout extends React.Component {
     // 退出
     logout = () => {
@@ -124,12 +98,10 @@ class MainLayout extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { changeLog, userResource, userRedisResource, userMenu } = state.userDetail;
+    const {   userMenu } = state.userDetail;
     return {
         loading: state.loading.models.userDetail,
-        changeLog,
-        userResource,
-        userRedisResource,
+       
         userMenu
     };
 }

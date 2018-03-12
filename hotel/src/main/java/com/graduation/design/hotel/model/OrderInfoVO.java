@@ -14,6 +14,10 @@ public class OrderInfoVO extends BaseVO{
      */
     private Integer userId;
     /**
+     * 用户姓名
+     */
+    private String userName;
+    /**
      * 订单的价格
      */
     private BigDecimal price;
@@ -28,7 +32,7 @@ public class OrderInfoVO extends BaseVO{
     /**
      * 房间编号
      */
-    private Integer roomNumber;
+    private String roomNumber;
 
     public Integer getUserId() {
         return userId;
@@ -62,11 +66,31 @@ public class OrderInfoVO extends BaseVO{
         this.leaveTime = leaveTime;
     }
 
-    public Integer getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(Integer roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderInfoVO{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", price=" + price +
+                ", checkTime=" + checkTime +
+                ", leaveTime=" + leaveTime +
+                ", roomNumber='" + roomNumber + '\'' +
+                '}';
     }
 }

@@ -5,7 +5,7 @@ import { routerRedux, Link } from 'dva/router';
 import MainLayout from '../MainLayout';
 import Popover from 'antd/lib/popover';
 const FormItem = Form.Item;
-class UserList extends React.Component {
+class AdminList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -25,7 +25,7 @@ class UserList extends React.Component {
         this.props.form.resetFields();
         this.setState({
             modalVisible: true,
-            id: null, userAccount: null, userPassword: null, userName: null, userId: null, userAge: null, userPhone: null
+            id: null, userAccount: null, userPassword: null, userName: null, userPhone: null
         })
     }
     Cancel = () => {
@@ -43,7 +43,7 @@ class UserList extends React.Component {
     }
     del = (id) => {
         this.props.dispatch({
-            type: 'userList/del',
+            type: 'adminList/del',
             payload: {
                 id,
             }
@@ -53,15 +53,14 @@ class UserList extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let id = this.state.id;
+                console.log(id)
                 if (id) {
                     this.props.dispatch({
-                        type: 'userList/edit',
+                        type: 'adminList/editAdmin',
                         payload: {
                             id: id,
                             userPassword: values.userPassword,
                             userName: values.userName,
-                            userId: values.userId,
-                            userAge: values.userAge,
                             userPhone: values.userPhone,
                             callback: () => {
                                 this.setState({
@@ -72,14 +71,12 @@ class UserList extends React.Component {
                     });
                 } else {
                     this.props.dispatch({
-                        type: 'userList/add',
+                        type: 'adminList/addAdmin',
                         payload: {
                             id: null,
                             userAccount: values.userAccount,
                             userPassword: values.userPassword,
                             userName: values.userName,
-                            userId: values.userId,
-                            userAge: values.userAge,
                             userPhone: values.userPhone,
                             callback: () => {
                                 this.setState({
@@ -93,12 +90,12 @@ class UserList extends React.Component {
         });
     }
     // 编辑
-    edit = (id, userAccount, userPassword, userName, userId, userAge, userPhone) => {
+    edit = (id, userAccount, userPassword, userName, userPhone) => {
         let props = this.props;
         props.form.resetFields();
         this.setState({
             modalVisible: true,
-            id, userAccount, userPassword, userName, userId, userAge, userPhone
+            id, userAccount, userPassword, userName, userPhone
         });
     }
     render() {
@@ -115,26 +112,16 @@ class UserList extends React.Component {
                 key: 'userName',
             },
             {
-                title: '身份证号',
-                dataIndex: 'userId',
-                key: 'userId',
-            },
-            {
                 title: '手机号',
                 dataIndex: 'userPhone',
                 key: 'userPhone'
-            },
-            {
-                title: '年龄',
-                dataIndex: 'userAge',
-                key: 'userAge',
             },
             {
                 title: '操作',
                 width: 100,
                 render: (text, record) => (
                     <div>
-                        <a onClick={() => { this.edit(record.id, record.userAccount, record.userPassword, record.userName, record.userId, record.userAge, record.userPhone) }}>修改</a>
+                        <a onClick={() => { this.edit(record.id, record.userAccount, record.userPassword, record.userName, record.userPhone) }}>修改</a>
                         <Popconfirm title="确认删除?" onConfirm={() => { this.del(record.id) }}>
                             <a style={{ marginLeft: 10 }}>删除</a>
                         </Popconfirm>
@@ -150,7 +137,7 @@ class UserList extends React.Component {
         };
 
         let { list } = props;
-        var url = "/system/userList";
+        var url = "/system/adminList";
         return (
             <MainLayout location={location} sider="system" url={url}>
                 <Modal
@@ -161,27 +148,28 @@ class UserList extends React.Component {
                     onCancel={this.Cancel}>
                     <Form layout="horizontal">
                         {
-                            this.state.id == null && this.state.id == undefined ? <FormItem label="账号" hasFeedback {...formItemLayout}>
-                                {getFieldDecorator('userAccount', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                        },
-                                    ],
-                                    initialValue: this.state.userAccount || null
-                                })(<Input />)}
-                            </FormItem> : <FormItem label="账号" hasFeedback {...formItemLayout}>
-                                    {getFieldDecorator('userAccount', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                            },
-                                        ],
-                                        initialValue: this.state.userAccount || null
-                                    })(<Input disabled/>)}
-                                </FormItem>
+                            this.state.id == null && this.state.id == undefined? <FormItem label="账号" hasFeedback {...formItemLayout}>
+                            {getFieldDecorator('userAccount', {
+                                rules: [
+                                    {
+                                        required: true,
+                                    },
+                                ],
+                                initialValue: this.state.userAccount || null
+                            })(<Input />)}
+                        </FormItem>:
+                        <FormItem label="账号" hasFeedback {...formItemLayout}>
+                            {getFieldDecorator('userAccount', {
+                                rules: [
+                                    {
+                                        required: true,
+                                    },
+                                ],
+                                initialValue: this.state.userAccount || null
+                            })(<Input disabled/>)}
+                            </FormItem>
                         }
-
+                       
                         <FormItem label="用户姓名" hasFeedback {...formItemLayout}>
                             {getFieldDecorator('userName', {
                                 rules: [
@@ -216,26 +204,10 @@ class UserList extends React.Component {
                                 />
                             )}
                         </FormItem>
-                        <FormItem label="身份证号" hasFeedback {...formItemLayout}>
-                            {getFieldDecorator('userId', {
-                                rules: [
-                                    {
-                                        required: true,
-                                    },
-                                ],
-                                initialValue: this.state.userId || null
-                            })(<Input />)}
-                        </FormItem>
                         <FormItem label="联系电话" hasFeedback {...formItemLayout}>
                             {getFieldDecorator('userPhone', {
 
                                 initialValue: this.state.userPhone || null
-                            })(<Input />)}
-                        </FormItem>
-                        <FormItem label="年龄" hasFeedback {...formItemLayout}>
-                            {getFieldDecorator('userAge', {
-
-                                initialValue: this.state.userAge || null
                             })(<Input />)}
                         </FormItem>
                     </Form>
@@ -259,13 +231,13 @@ class UserList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { list } = state.userList;
+    const { list } = state.adminList;
     return {
-        loading: state.loading.models.userList,
+        loading: state.loading.models.adminList,
         list,
         // total,
         // page
     };
 }
-UserList = Form.create()(UserList);
-export default connect(mapStateToProps)(UserList);
+AdminList = Form.create()(AdminList);
+export default connect(mapStateToProps)(AdminList);

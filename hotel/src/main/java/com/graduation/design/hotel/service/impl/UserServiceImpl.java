@@ -19,6 +19,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public List<UserVO> getAdminList() {
+        return userDao.getAdminList();
+    }
+
+    @Override
     public UserVO getUser(Integer id) {
         return userDao.getUser(id);
     }
