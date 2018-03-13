@@ -6,7 +6,7 @@ import MainLayout from '../MainLayout';
 import Popover from 'antd/lib/popover';
 import { dataDict } from '../../utils/dataDict';
 const FormItem = Form.Item;
-class OrderList extends React.Component {
+class MyRoom extends React.Component {
 
     constructor(props) {
         super(props);
@@ -22,11 +22,11 @@ class OrderList extends React.Component {
     //         query: { page }
     //     }));
     // }
-    del = (id) => {
+    unsubscribe = (roomNumber) => {
         this.props.dispatch({
-            type: 'orderList/del',
+            type: 'myRoom/unsubscribe',
             payload: {
-                id,
+                roomNumber,
             }
         });
     }
@@ -34,59 +34,36 @@ class OrderList extends React.Component {
 
         const columns = [
             {
-                title: '订单ID',
-                dataIndex: 'id',
-                key: 'id',
-            },
-            {
-                title: '用户',
-                dataIndex: 'userName',
-                key: 'userName',
-            },
-            {
                 title: '房间编号',
                 dataIndex: 'roomNumber',
-                key: 'roomNumber'
-            },
-            {
-                title: '订单价格',
-                dataIndex: 'price',
-                key: 'price'
+                key: 'roomNumber',
             },
             {
                 title: '入住时间',
                 dataIndex: 'checkTime',
                 key: 'checkTime',
-                render:(text, record)=>{
-                    return text.slice(0,10)
+                render: (text, record) => {
+                    return text.slice(0, 10)
                 }
             },
             {
                 title: '离开时间',
                 dataIndex: 'leaveTime',
                 key: 'leaveTime',
-                render:(text, record)=>{
-                    return text.slice(0,10)
-                }
-            },
-            {
-                title: '创建时间',
-                dataIndex: 'crateTime',
-                key: 'crateTime',
-                render:(text, record)=>{
-                    return text.slice(0,10)
-                }
-            },
-            {
-                title: '状态',
-                dataIndex: 'flg',
-                key: 'flg',
                 render: (text, record) => {
-                    const orderFlg = dataDict("orderFlg", text)
+                    return text.slice(0, 10)
+                }
+            },
+            {
+                title: '房间标准',
+                dataIndex: 'standard',
+                key: 'standard',
+                render: (text, record) => {
+                    const standardText = dataDict("roomStandard", text)
                     return (
                         <div>
                             <Tag>
-                                {orderFlg}
+                                {standardText}
                             </Tag>
                         </div>)
                 }
@@ -96,16 +73,14 @@ class OrderList extends React.Component {
                 width: 100,
                 render: (text, record) => (
                     <div>
-                        <Popconfirm title="确认删除?" onConfirm={() => { this.del(record.id) }}>
-                            <a style={{ marginLeft: 10 }}>删除</a>
-                        </Popconfirm>
+                       <a onClick={() => { this.unsubscribe(record.roomNumber) }}>退订</a>
                     </div>
                 )
             }
         ];
         const props = this.props;
         let { list } = props;
-        var url = "/system/orderList";
+        var url = "/system/myRoom";
         return (
             <MainLayout location={location} sider="system" url={url}>
                 <div className="box20" />
@@ -124,12 +99,12 @@ class OrderList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { list } = state.orderList;
+    const { list } = state.myRoom;
     return {
-        loading: state.loading.models.orderList,
+        loading: state.loading.models.myRoom,
         list,
         // total,
         // page
     };
 }
-export default connect(mapStateToProps)(OrderList);
+export default connect(mapStateToProps)(MyRoom);

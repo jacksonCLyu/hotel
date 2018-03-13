@@ -15,7 +15,7 @@ public interface IRoomService {
 
     Integer deleteRoom(Integer id);
 
-    Integer updateFlg(Integer id,  Integer flg);
+    String updateFlg(String roomNumber,  Integer flg);
 
     /**
      * 根据查询条件筛选

@@ -39,9 +39,9 @@ public class RoomServiceImpl implements IRoomService{
     }
 
     @Override
-    public Integer updateFlg(Integer id, Integer flg) {
-        roomDao.updateFlg(id,flg);
-        return id;
+    public String updateFlg(String roomNumber, Integer flg) {
+        roomDao.updateFlg(roomNumber,flg);
+        return roomNumber;
     }
 
     @Override

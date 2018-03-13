@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.graduation.design.hotel.dao.IMyRoomDao">
+    <select id="getListMyRoom" resultType="MyRoomVO">
+        SELECT r.room_number as roomNumber,o.check_time as checkTime, o.leave_time as leaveTime,standard
+        from order_info as o  LEFT JOIN  room_info as r on r.room_number=o.room_number
+        LEFT JOIN user_room as u on u.room_number=o.room_number
+        where o.user_id=#{userId} and o.flg=2  and u.user_id=#{userId}
+    </select>
+    <update id="unsubscribe">
+        UPDATE order_info SET flg=3 where room_number=#{roomNumber} AND user_id=#{userId};
+    </update>
+    <delete id="deleteUserRoom" parameterType="UserRoomVO">
+        DELETE  FROM user_room WHERE  user_id=#{userId} AND room_number=#{roomNumber};
+    </delete>
+</mapper>

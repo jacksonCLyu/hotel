@@ -50,7 +50,7 @@
         DELETE FROM  room_info WHERE id=#{id}
     </delete>
     <update id="updateFlg">
-        UPDATE room_info SET flg=#{flg} where id = #{id}
+        UPDATE room_info SET flg=#{flg} where room_number = #{roomNumber}
     </update>
     <select id="findRoom" resultMap="roomVoMap" parameterType="RoomInfoVO">
         select

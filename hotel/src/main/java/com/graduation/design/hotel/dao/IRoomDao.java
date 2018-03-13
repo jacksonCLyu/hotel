@@ -18,7 +18,7 @@ public interface IRoomDao {
 
     void deleteRoom(Integer id);
 
-    void updateFlg(@Param("id") Integer id, @Param("flg") Integer flg);
+    void updateFlg(@Param("roomNumber") String roomNumber, @Param("flg") Integer flg);
     /**
      * 根据查询条件筛选
      * @param vo

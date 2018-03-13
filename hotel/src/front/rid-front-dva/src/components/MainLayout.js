@@ -11,6 +11,9 @@ import { UserList } from './system/UserList';
 import { AdminList } from './system/AdminList';
 import { OrderList } from './system/OrderList';
 import { RoomList } from './system/RoomList';
+import { MyInfo } from './system/MyInfo';
+import { MyOrder } from './system/MyOrder';
+import { MyRoom } from './system/MyRoom';
 class MainLayout extends React.Component {
     // 退出
     logout = () => {

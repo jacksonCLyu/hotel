@@ -11,9 +11,9 @@ public class UserRoomVO extends BaseVO{
      */
     private Integer userId;
     /**
-     * 房间的ID
+     * 房间编号
      */
-    private Integer roomId;
+    private String roomNumber;
 
     public Integer getUserId() {
         return userId;
@@ -23,19 +23,19 @@ public class UserRoomVO extends BaseVO{
         this.userId = userId;
     }
 
-    public Integer getRoomId() {
-        return roomId;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRoomId(Integer roomId) {
-        this.roomId = roomId;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     @Override
     public String toString() {
         return "UserRoomVO{" +
                 "userId=" + userId +
-                ", roomId=" + roomId +
+                ", roomNumber='" + roomNumber + '\'' +
                 '}';
     }
 }

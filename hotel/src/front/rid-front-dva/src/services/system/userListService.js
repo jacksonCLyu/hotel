@@ -31,3 +31,7 @@ export function editAdmin({ id, userAccount, userPassword, userName, userPhone }
 export function del({ id }) {
     return dele(`/user/deleteUser/`+id);
 }
+
+export function getUser({ id }) {
+    return get(`/user/getUser/`+id);
+}

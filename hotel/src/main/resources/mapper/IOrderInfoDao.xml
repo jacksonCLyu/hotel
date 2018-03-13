@@ -22,10 +22,16 @@
         <include refid="orderInfo"/>
         from order_info o left join user u on o.user_id=u.id;
     </select>
+
+    <select id="getMyOrderInfo" resultMap="OrderInfoVoMap">
+        select
+        <include refid="orderInfo"/>
+        from order_info o left join user u on o.user_id=u.id where o.user_id=#{userId};
+    </select>
     <select id="getOrderInfo" resultMap="OrderInfoVoMap" parameterType="int">
         select
         <include refid="orderInfo"/>
-        from order_info order_info o left join user u on o.user_id=u.id WHERE id=#{id};
+        from order_info order_info o left join user u on o.user_id=u.id WHERE o.id=#{id};
     </select>
     <insert id="insertOrderInfo" parameterType="OrderInfoVO" >
         INSERT INTO order_info (user_id,price,check_time,leave_time,room_number,crate_time,flg,room_prick)
@@ -51,6 +57,12 @@
             </if>
             update_time=NOW()
         </set>
+        where id = #{id}
+    </update>
+
+    <update id="pay" parameterType="int">
+        UPDATE order_info
+          SET  flg=2
         where id = #{id}
     </update>
     <delete id="deleteOrderInfo" parameterType="int">

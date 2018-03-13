@@ -15,4 +15,11 @@ public interface IOrderInfoDao {
     OrderInfoVO updateOrderInfo(OrderInfoVO vo);
 
     Integer deleteOrderInfo(Integer id);
+
+    List<OrderInfoVO> getMyOrderInfo(Integer userId);
+    /**
+     * 支付
+     * @param id
+     */
+    void pay(Integer id);
 }

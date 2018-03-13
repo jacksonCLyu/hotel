@@ -34,8 +34,8 @@ public class RoomController {
     public ActionResult<Integer> deleteRoom(@PathVariable("id") Integer id) {
         return ActionResult.New(roomService.deleteRoom(id));
     }
-    @PutMapping("/updateRoomFlg/{id}")
-    public ActionResult<Integer> updateRoomFlg(@PathVariable("id") Integer id,@RequestBody Integer flg) {
-        return ActionResult.New(roomService.updateFlg(id,flg));
-    }
+//    @PutMapping("/updateRoomFlg/{id}")
+//    public ActionResult<Integer> updateRoomFlg(@PathVariable("id") Integer id,@RequestBody Integer flg) {
+//        return ActionResult.New(roomService.updateFlg(id,flg));
+//    }
 }
