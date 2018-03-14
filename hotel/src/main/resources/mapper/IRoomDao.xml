@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.graduation.design.hotel.dao.IRoomDao">
     <resultMap id="roomVoMap" type="RoomInfoVO">
-        <id column="id" property="id"></id>
-        <result column="room_number" property="roomNumber"></result>
-        <result column="price" property="price"></result>
-        <result column="standard" property="standard"></result>
-        <result column="crate_time" property="crateTime"></result>
-        <result column="update_time" property="updateTime"></result>
-        <result column="flg" property="flg"></result>
+        <id column="id" property="id"/>
+        <result column="room_number" property="roomNumber"/>
+        <result column="price" property="price"/>
+        <result column="standard" property="standard"/>
+        <result column="crate_time" property="crateTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="flg" property="flg"/>
     </resultMap>
     <sql id="roomSql">
         id,room_number,price,standard,crate_time,update_time,flg

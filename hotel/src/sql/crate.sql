@@ -10,10 +10,31 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-03-13 17:30:20
+Date: 2018-03-14 17:51:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for evaluation_of_complaints
+-- ----------------------------
+DROP TABLE IF EXISTS `evaluation_of_complaints`;
+CREATE TABLE `evaluation_of_complaints` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户的ID',
+  `content` varchar(255) NOT NULL COMMENT '评价内容',
+  `score` tinyint(4) NOT NULL COMMENT '1:好评2:中评3:差评',
+  `crate_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `reply` varchar(255) DEFAULT NULL COMMENT '管理员的回复',
+  `admin_id` int(11) DEFAULT NULL COMMENT '回复管理员的ID',
+  `flg` tinyint(4) NOT NULL COMMENT '1:评价2:投诉',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户评价及投诉表表';
+
+-- ----------------------------
+-- Records of evaluation_of_complaints
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for menu
@@ -26,7 +47,7 @@ CREATE TABLE `menu` (
   `menu_uri` varchar(255) NOT NULL COMMENT '菜单后端uri映射',
   `menu_flg` tinyint(4) NOT NULL COMMENT '菜单标志：0表示用户权限，1：管理员权限，2：用户与管理员共享',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of menu
@@ -38,6 +59,10 @@ INSERT INTO `menu` VALUES ('4', '订单列表', '/system/orderList', '/order/get
 INSERT INTO `menu` VALUES ('5', '我的信息', '/system/myInfo', '/user/myInfo', '0');
 INSERT INTO `menu` VALUES ('6', '我的订单', '/system/myOrder', '/order/myOrder', '0');
 INSERT INTO `menu` VALUES ('7', '我的房间', '/system/myRoom', '/room/myRoom', '0');
+INSERT INTO `menu` VALUES ('8', '我的评论', '/system/myComment', '/comment/myComment', '0');
+INSERT INTO `menu` VALUES ('9', '我的投诉', '/system/myComplaint', '/complaint/myComplaint', '0');
+INSERT INTO `menu` VALUES ('10', '评论列表', '/system/commentList', '/comment/getCommentList', '2');
+INSERT INTO `menu` VALUES ('11', '投诉列表', '/system/complaintList', '/complaint/getComplaintList', '2');
 
 -- ----------------------------
 -- Table structure for order_info
@@ -104,7 +129,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'admin', '', 'admin', null, null, '2018-03-12 10:42:17', '2018-03-12 10:42:17', '1');
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', '', 'admin', null, null, '2018-03-14 11:11:59', '2018-03-14 11:11:59', '1');
 INSERT INTO `user` VALUES ('18', 'qishuo', '123', '11111', '乞硕', '12122', '122', '2018-03-13 10:04:17', '2018-03-13 10:04:17', '0');
 INSERT INTO `user` VALUES ('19', 'test', '123', '1111', 'test', null, null, '2018-03-13 17:27:55', null, '0');
 
@@ -117,7 +142,7 @@ CREATE TABLE `user_room` (
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `room_number` varchar(50) NOT NULL COMMENT '房间编号',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户与房间的关系';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与房间的关系';
 
 -- ----------------------------
 -- Records of user_room
