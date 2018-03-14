@@ -31,8 +31,6 @@ public class LoginController {
         if (null == user) {
             return ActionResult.New(1, "账号或密码错误");
         } else {
-            //密码赋值空避免密码泄露
-            user.setUserPassword(null);
             SessionHolder.setLoginUser(user);
             return ActionResult.New(0);
         }

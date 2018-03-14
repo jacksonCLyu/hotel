@@ -1,4 +1,5 @@
 import { userDetail } from '../services/userDetailService';
+import { edit} from "../services/system/userListService"
 export default {
     namespace: 'userDetail',
     state: {
@@ -21,6 +22,10 @@ export default {
                     userMenu
                 },
             });
+        },
+        *editPassword({ payload: {id,userPassword,callback} }, { call, put }) {
+            yield call(edit,{id,userPassword,userName:null,userId:null,userAge:null,userPhone:null});
+            callback();
         },
     },
     subscriptions: {
