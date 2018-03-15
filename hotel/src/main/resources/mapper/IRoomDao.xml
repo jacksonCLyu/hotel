@@ -21,9 +21,9 @@
     <select id="getRoom" resultMap="roomVoMap" parameterType="int">
         select
         <include refid="roomSql"/>
-        from room_info WHERE id=#{id};
+        from room_info WHERE id=#{id} AND flg=1;
     </select>
-    <insert id="insertRoom" parameterType="RoomInfoVO" >
+    <insert id="insertRoom" parameterType="RoomInfoVO">
         INSERT INTO room_info (room_number,price,standard,crate_time,flg)
         values (#{roomNumber}, #{price}, #{standard},NOW(),1);
     </insert>
@@ -58,17 +58,25 @@
         from room_info
         <where>
             <if test="roomNumber != null and roomNumber != ''">
-                 room_number=!{roomNumber}
+                room_number=#{roomNumber}
             </if>
             <if test="price != null and price != ''">
-                and price=!{price}
+                and price=#{price}
             </if>
             <if test="standard != null ">
-                and standard=!{standard}
+                and standard=#{standard}
             </if>
             <if test="flg != null ">
-                and flg=!{flg}
+                and flg=#{flg}
             </if>
         </where>
+    </select>
+
+    <select id="searchRoom" resultMap="roomVoMap">
+        select
+        <include refid="roomSql"/>
+        from room_info as ro
+        WHERE ro.flg=1 AND room_number NOT IN (SELECT o.room_number FROM order_info AS o WHERE (o.check_time BETWEEN #{checkTime} AND #{leaveTime} OR o.leave_time BETWEEN
+        #{checkTime} AND #{leaveTime}) AND o.flg=2)
     </select>
 </mapper>

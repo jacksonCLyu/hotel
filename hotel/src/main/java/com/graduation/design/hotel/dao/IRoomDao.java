@@ -4,6 +4,7 @@ import com.graduation.design.hotel.model.RoomInfoVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -25,4 +26,10 @@ public interface IRoomDao {
      * @return
      */
     RoomInfoVO findRoom(RoomInfoVO vo);
+
+    /**
+     * 根据预订时间查找未预定的房间
+     * @return
+     */
+    List<RoomInfoVO> searchRoom(@Param("checkTime") String checkTime, @Param("leaveTime")String leaveTime);
 }

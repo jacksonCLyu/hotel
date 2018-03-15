@@ -1,4 +1,4 @@
-import { getListRoom, add, exit, del,book } from "../services/system/roomListService"
+import { getListRoom, add, exit, del,book ,searchRoom} from "../services/system/roomListService"
 import pathToRegexp from 'path-to-regexp'
 import { Modal } from 'antd';
 export default {
@@ -14,6 +14,15 @@ export default {
     effects: {
         *listInit({ payload }, { call, put }) {
             const { data } = yield call(getListRoom);
+            yield put({
+                type: 'initState',
+                payload: {
+                    data: data,
+                }
+            });
+        },
+        *searchRoom({ payload:{checkTime,leaveTime} }, { call, put }) {
+            const { data } = yield call(searchRoom,{checkTime,leaveTime});
             yield put({
                 type: 'initState',
                 payload: {

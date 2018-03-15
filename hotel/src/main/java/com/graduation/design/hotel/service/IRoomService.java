@@ -2,10 +2,17 @@ package com.graduation.design.hotel.service;
 
 import com.graduation.design.hotel.model.RoomInfoVO;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IRoomService {
     List<RoomInfoVO> getListRoom();
+
+    /**
+     * 根据预订时间查找未预定的房间
+     * @return
+     */
+    List<RoomInfoVO> searchRoom(String checkTime,String leaveTime);
 
     RoomInfoVO getRoom(Integer id);
 

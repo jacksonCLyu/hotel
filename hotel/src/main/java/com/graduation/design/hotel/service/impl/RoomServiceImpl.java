@@ -6,6 +6,7 @@ import com.graduation.design.hotel.service.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public class RoomServiceImpl implements IRoomService{
@@ -14,6 +15,11 @@ public class RoomServiceImpl implements IRoomService{
     @Override
     public List<RoomInfoVO> getListRoom() {
         return roomDao.getListRoom();
+    }
+
+    @Override
+    public List<RoomInfoVO> searchRoom(String checkTime, String leaveTime) {
+        return roomDao.searchRoom(checkTime,leaveTime);
     }
 
     @Override

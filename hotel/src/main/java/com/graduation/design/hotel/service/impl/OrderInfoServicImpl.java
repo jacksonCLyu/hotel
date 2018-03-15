@@ -55,7 +55,6 @@ public class OrderInfoServicImpl implements IOrderInfoServic {
     @Transactional
     public void pay(Integer id, UserRoomVO vo) {
         orderInfoDao.pay(id);
-        roomService.updateFlg(vo.getRoomNumber(),2);
         userRoomService.insertUserRoom(vo);
     }
 }

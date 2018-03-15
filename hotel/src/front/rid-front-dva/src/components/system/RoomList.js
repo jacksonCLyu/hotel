@@ -13,7 +13,8 @@ class RoomList extends React.Component {
         super(props);
         this.state = {
             modalVisible: false,
-            bookModal: false
+            bookModal: false,
+            roomFlg: false
         };
     }
     // // 改变页面
@@ -120,8 +121,8 @@ class RoomList extends React.Component {
                         roomNumber: arg.roomNumber,
                         price: arg.price,
                         userId: user.id,
-                        checkTime:arg.checkTime,
-                        leaveTime:arg.leaveTime,
+                        checkTime: arg.checkTime,
+                        leaveTime: arg.leaveTime,
                         jumpPage: () => {
                             this.props.dispatch(routerRedux.push({
                                 pathname: '/system/myOrder'
@@ -139,6 +140,23 @@ class RoomList extends React.Component {
         this.setState({
             bookModal: true,
             id, roomNumber, price, standard, flg
+        });
+    }
+    onChange = (value, dateString) => {
+        this.setState({
+            roomFlg: true
+        })
+        let checkTime, leaveTime
+        if (value && value.length > 0) {
+            checkTime = value[0].format('YYYY-MM-DD');
+            leaveTime = value[1].format('YYYY-MM-DD');
+        };
+        this.props.dispatch({
+            type: 'roomList/searchRoom',
+            payload: {
+                checkTime: checkTime,
+                leaveTime: leaveTime,
+            }
         });
     }
     render() {
@@ -165,20 +183,6 @@ class RoomList extends React.Component {
                         <div>
                             <Tag>
                                 {standardText}
-                            </Tag>
-                        </div>)
-                }
-            },
-            {
-                title: '状态',
-                dataIndex: 'flg',
-                key: 'flg',
-                render: (text, record) => {
-                    const flgText = dataDict("roomFlg", text)
-                    return (
-                        <div>
-                            <Tag>
-                                {flgText}
                             </Tag>
                         </div>)
                 }
@@ -259,6 +263,7 @@ class RoomList extends React.Component {
                                 </Select>
                             )}
                         </FormItem>
+                        {/*更新是时才能更新房间状态,默认新增的房间都是能住*/}
                         {
                             this.state.id ?
                                 <FormItem label="房间状态" hasFeedback {...formItemLayout}>
@@ -269,8 +274,8 @@ class RoomList extends React.Component {
                                             optionFilterProp="children"
                                             placeholder="请选择状态"
                                         >
-                                            <Option value={1} >未预定</Option>
-                                            <Option value={2} >已预订</Option>
+                                            <Option value={1} >房间可住</Option>
+                                            <Option value={2} >房间不可住</Option>
                                         </Select>
                                     )}
                                 </FormItem> : ""
@@ -321,16 +326,21 @@ class RoomList extends React.Component {
                             <Button onClick={this.add} className="pull-right" type="primary" icon="plus">新增</Button>
                         </div> : ""
                 }
+
+
+                预订日期:&nbsp;<RangePicker onChange={this.onChange} />
                 <div className="box20" />
-                <Table
-                    columns={columns}
-                    dataSource={list}
-                    rowKey={record => record.id}
-                    loading={props.loading}
-                    pagination={false}
-                // //修改页面
-                // onChange={this.pageChangeHandler}
-                />
+                {
+                    this.state.roomFlg || user.flg == 1 ? <Table
+                        columns={columns}
+                        dataSource={list}
+                        rowKey={record => record.id}
+                        loading={props.loading}
+                        pagination={false}
+                    // //修改页面
+                    // onChange={this.pageChangeHandler}
+                    /> : ""
+                }
             </MainLayout>
         )
     }

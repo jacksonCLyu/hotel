@@ -6,6 +6,7 @@ import com.graduation.design.hotel.service.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,10 @@ public class RoomController {
     @DeleteMapping("/deleteRoom/{id}")
     public ActionResult<Integer> deleteRoom(@PathVariable("id") Integer id) {
         return ActionResult.New(roomService.deleteRoom(id));
+    }
+    @GetMapping("/searchRoom")
+    public ActionResult<List<RoomInfoVO>> searchRoom(String checkTime,String leaveTime) {
+        return ActionResult.New(roomService.searchRoom(checkTime,leaveTime));
     }
 //    @PutMapping("/updateRoomFlg/{id}")
 //    public ActionResult<Integer> updateRoomFlg(@PathVariable("id") Integer id,@RequestBody Integer flg) {

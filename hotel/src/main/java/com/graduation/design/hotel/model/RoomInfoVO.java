@@ -21,7 +21,7 @@ public class RoomInfoVO extends BaseVO {
      */
     private Integer standard;
     /**
-     * 房间状态1:未预定2预订
+     * 房间状态1:房间可住2房间不可住
      */
     private Integer flg;
 
