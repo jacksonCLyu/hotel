@@ -4,6 +4,9 @@ import com.graduation.design.hotel.model.EvaAndCompVO;
 
 import java.util.List;
 
+/**
+ * 评价或投诉Service
+ */
 public interface IEvaAndCompService {
     /**
      * 获取所有的评价和投诉

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author QiShuo
+ * 获取菜单Dao
  */
 @Repository
 public interface IMenuDao {

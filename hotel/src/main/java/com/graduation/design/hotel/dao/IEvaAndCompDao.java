@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * 评论+投诉DAO
+ */
 @Repository
 public interface IEvaAndCompDao {
     /**
