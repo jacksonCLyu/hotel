@@ -14,7 +14,11 @@ const conf = {
         "2":"已支付",
         "3":"已退订",
     },
-    
+    score:{
+        "1":"好评",
+        "2":"中评",
+        "3":"差评",
+    },
 };
 
 export function dataDict(dict, id, def) {

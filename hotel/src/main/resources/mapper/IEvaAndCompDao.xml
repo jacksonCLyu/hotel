@@ -4,26 +4,33 @@
     <resultMap id="EvaAndCompMap" type="EvaAndCompVO">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
         <result column="content" property="content"/>
         <result column="score" property="score"/>
         <result column="crate_time" property="crateTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="reply" property="reply"/>
         <result column="admin_id" property="adminId"/>
+        <result column="admin_name" property="adminName"/>
         <result column="flg" property="flg"/>
     </resultMap>
     <sql id="evaAndCompSql">
-        id,user_id,content,score,crate_time,update_time,reply,admin_id,flg
+        e.id,e.user_id,e.content,e.score,e.crate_time,e.update_time,e.reply,e.admin_id,e.flg,u.user_name,ad.user_name as admin_name
     </sql>
     <select id="getListEvaAndComp" resultMap="EvaAndCompMap">
-        SELECT <include refid="evaAndCompSql"/> FROM evaluation_of_complaints
+        SELECT <include refid="evaAndCompSql"/> FROM evaluation_of_complaints as e LEFT JOIN user as u ON e.user_id=u.id
+        LEFT  JOIN  user as ad ON e.admin_id=ad.id
     </select>
     <select id="getListEvaOrComp" resultMap="EvaAndCompMap" parameterType="int">
-        SELECT <include refid="evaAndCompSql"/> FROM evaluation_of_complaints WHERE flg=#{flg}
+        SELECT <include refid="evaAndCompSql"/> FROM evaluation_of_complaints as e LEFT JOIN user as u ON e.user_id=u.id
+        LEFT  JOIN  user as ad ON e.admin_id=ad.id
+        WHERE e.flg=#{flg}
     </select>
 
     <select id="getMyEvaOrComp" resultMap="EvaAndCompMap" >
-        SELECT <include refid="evaAndCompSql"/> FROM evaluation_of_complaints WHERE flg=#{flg} and user_id=#{userId}
+        SELECT <include refid="evaAndCompSql"/> FROM evaluation_of_complaints as e LEFT JOIN user as u ON e.user_id=u.id
+        LEFT  JOIN  user as ad ON e.admin_id=ad.id
+        WHERE e.flg=#{flg} and e.user_id=#{userId}
     </select>
     <insert id="inserEvaOrComp" parameterType="EvaAndCompVO">
         INSERT into evaluation_of_complaints (user_id,content,score,crate_time,flg)

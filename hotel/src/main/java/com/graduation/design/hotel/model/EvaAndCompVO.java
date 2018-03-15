@@ -9,7 +9,11 @@ public class EvaAndCompVO extends BaseVO {
     /**
      * 用户ID
      */
-    private Integer user_id;
+    private Integer userId;
+    /**
+     * 用户姓名
+     */
+    private String userName;
     /**
      * 评价或投诉内容
      */
@@ -27,16 +31,20 @@ public class EvaAndCompVO extends BaseVO {
      */
     private Integer adminId;
     /**
-     * 1:评价2:回复
+     * 管理员名称
+     */
+    private String adminName;
+    /**
+     * 1:评价2:投诉
      */
     private Integer flg;
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getContent() {
@@ -79,18 +87,33 @@ public class EvaAndCompVO extends BaseVO {
         this.flg = flg;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
     @Override
     public String toString() {
-        return "EvaluationOfComplaintsVO{" +
-                "user_id=" + user_id +
+        return "EvaAndCompVO{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
                 ", content='" + content + '\'' +
                 ", score=" + score +
                 ", reply='" + reply + '\'' +
                 ", adminId=" + adminId +
+                ", adminName='" + adminName + '\'' +
                 ", flg=" + flg +
-                ", id=" + id +
-                ", crateTime=" + crateTime +
-                ", updateTime=" + updateTime +
                 '}';
     }
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-03-14 17:51:01
+Date: 2018-03-15 15:50:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,18 +23,20 @@ CREATE TABLE `evaluation_of_complaints` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL COMMENT '用户的ID',
   `content` varchar(255) NOT NULL COMMENT '评价内容',
-  `score` tinyint(4) NOT NULL COMMENT '1:好评2:中评3:差评',
+  `score` tinyint(4) DEFAULT NULL COMMENT '1:好评2:中评3:差评',
   `crate_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `reply` varchar(255) DEFAULT NULL COMMENT '管理员的回复',
   `admin_id` int(11) DEFAULT NULL COMMENT '回复管理员的ID',
   `flg` tinyint(4) NOT NULL COMMENT '1:评价2:投诉',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户评价及投诉表表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户评价及投诉表表';
 
 -- ----------------------------
 -- Records of evaluation_of_complaints
 -- ----------------------------
+INSERT INTO `evaluation_of_complaints` VALUES ('3', '19', '111', '1', '2018-03-15 15:30:37', '2018-03-15 15:30:37', '1212', '1', '1');
+INSERT INTO `evaluation_of_complaints` VALUES ('5', '18', 'qqq', null, '2018-03-15 15:44:36', '2018-03-15 15:44:36', '121212', '1', '2');
 
 -- ----------------------------
 -- Table structure for menu
@@ -59,10 +61,8 @@ INSERT INTO `menu` VALUES ('4', '订单列表', '/system/orderList', '/order/get
 INSERT INTO `menu` VALUES ('5', '我的信息', '/system/myInfo', '/user/myInfo', '0');
 INSERT INTO `menu` VALUES ('6', '我的订单', '/system/myOrder', '/order/myOrder', '0');
 INSERT INTO `menu` VALUES ('7', '我的房间', '/system/myRoom', '/room/myRoom', '0');
-INSERT INTO `menu` VALUES ('8', '我的评论', '/system/myComment', '/comment/myComment', '0');
-INSERT INTO `menu` VALUES ('9', '我的投诉', '/system/myComplaint', '/complaint/myComplaint', '0');
-INSERT INTO `menu` VALUES ('10', '评论列表', '/system/commentList', '/comment/getCommentList', '2');
-INSERT INTO `menu` VALUES ('11', '投诉列表', '/system/complaintList', '/complaint/getComplaintList', '2');
+INSERT INTO `menu` VALUES ('10', '评论列表', '/system/evaluationList', '/evaOrComp/getEvaluationList', '2');
+INSERT INTO `menu` VALUES ('11', '投诉列表', '/system/complaintsList', '/evaOrComp/getComplaintsList', '2');
 
 -- ----------------------------
 -- Table structure for order_info
