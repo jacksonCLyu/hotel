@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-03-15 15:50:13
+Date: 2018-03-15 17:30:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -74,19 +74,20 @@ CREATE TABLE `order_info` (
   `price` decimal(10,2) NOT NULL COMMENT '订单价格',
   `check_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '入住时间',
   `leave_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '离开时间',
-  `room_number` int(10) NOT NULL COMMENT '房间编号',
+  `room_number` varchar(55) NOT NULL COMMENT '房间编号',
   `crate_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `flg` tinyint(4) DEFAULT NULL COMMENT '订单状态:1:待支付,2:已支付3:已退订',
   `room_prick` decimal(10,0) NOT NULL COMMENT '房间价格',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='订单表信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='订单表信息表';
 
 -- ----------------------------
 -- Records of order_info
 -- ----------------------------
 INSERT INTO `order_info` VALUES ('5', '18', '1212.00', '2018-03-13 15:00:17', '2018-03-13 15:00:17', '121', '2018-03-13 15:00:17', '2018-03-13 15:00:17', '3', '1212');
 INSERT INTO `order_info` VALUES ('6', '18', '1212.00', '2018-03-13 15:00:51', '2018-03-13 15:00:51', '121', '2018-03-13 15:00:51', '2018-03-13 15:00:51', '3', '1212');
+INSERT INTO `order_info` VALUES ('7', '18', '3636.00', '2018-03-15 16:51:31', '2018-03-15 16:51:31', '121', '2018-03-15 16:51:31', '2018-03-15 16:51:31', '2', '1212');
 
 -- ----------------------------
 -- Table structure for room_info
@@ -99,14 +100,14 @@ CREATE TABLE `room_info` (
   `standard` tinyint(4) NOT NULL COMMENT '房间标准:1:标间2:大床房3:情侣主题4:豪华总统间',
   `crate_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  `flg` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1:未预定2:预订',
+  `flg` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1:房间可住2:房间不可住',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='房间信息';
 
 -- ----------------------------
 -- Records of room_info
 -- ----------------------------
-INSERT INTO `room_info` VALUES ('3', '121', '1212.00', '3', '2018-03-13 15:00:51', '2018-03-13 15:00:51', '1');
+INSERT INTO `room_info` VALUES ('3', '121', '1212.00', '3', '2018-03-15 17:12:32', '2018-03-15 17:12:32', '1');
 
 -- ----------------------------
 -- Table structure for user
@@ -142,8 +143,9 @@ CREATE TABLE `user_room` (
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `room_number` varchar(50) NOT NULL COMMENT '房间编号',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与房间的关系';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户与房间的关系';
 
 -- ----------------------------
 -- Records of user_room
 -- ----------------------------
+INSERT INTO `user_room` VALUES ('1', '18', '121');
