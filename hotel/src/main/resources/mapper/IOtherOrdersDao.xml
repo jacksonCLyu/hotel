@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.graduation.design.hotel.dao.IOtherOrdersDao">
+    <sql id="order">
+       o.id,o.user_id as userId,o.casual_diet_id as casualDietId,o.crate_time as crateTime,o.update_time as updateTime,u.user_name as userName ,c.name as casualDietName ,c.price as price
+    </sql>
+    <select id="getListOtherOrders" resultType="OtherOrdersVO">
+        select
+        <include refid="order"/>
+        from other_orders o left join user u on o.user_id=u.id
+        left join casual_diet c on o.casual_diet_id=c.id;
+    </select>
+
+    <select id="getMyOtherOrders" resultType="OtherOrdersVO">
+        select
+        <include refid="order"/>
+        from other_orders o left join user u on o.user_id=u.id
+        left join casual_diet c on o.casual_diet_id=c.id
+        where o.user_id=#{userId};
+    </select>
+    <select id="getOtherOrders" resultType="OtherOrdersVO" parameterType="int">
+        select
+        <include refid="order"/>
+        from other_orders o left join user u on o.user_id=u.id
+        left join casual_diet c on o.casual_diet_id=c.id
+        where o.user_id=#{userId}
+        WHERE o.id=#{id};
+    </select>
+    <insert id="insertOtherOrders" parameterType="OtherOrdersVO" >
+        INSERT INTO other_orders (user_id,casual_diet_id,crate_time)
+        values (#{userId}, #{casualDietId},NOW());
+    </insert>
+
+    <delete id="deleteOtherOrders" parameterType="int">
+        DELETE FROM  other_orders WHERE id=#{id}
+    </delete>
+</mapper>

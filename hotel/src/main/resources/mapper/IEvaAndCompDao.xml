@@ -13,9 +13,10 @@
         <result column="admin_id" property="adminId"/>
         <result column="admin_name" property="adminName"/>
         <result column="flg" property="flg"/>
+        <result column="path" property="path"/>
     </resultMap>
     <sql id="evaAndCompSql">
-        e.id,e.user_id,e.content,e.score,e.crate_time,e.update_time,e.reply,e.admin_id,e.flg,u.user_name,ad.user_name as admin_name
+        e.id,e.user_id,e.content,e.score,e.crate_time,e.update_time,e.reply,e.admin_id,e.flg,u.user_name,ad.user_name as admin_name,e.path
     </sql>
     <select id="getListEvaAndComp" resultMap="EvaAndCompMap">
         SELECT <include refid="evaAndCompSql"/> FROM evaluation_of_complaints as e LEFT JOIN user as u ON e.user_id=u.id
@@ -33,11 +34,11 @@
         WHERE e.flg=#{flg} and e.user_id=#{userId}
     </select>
     <insert id="inserEvaOrComp" parameterType="EvaAndCompVO">
-        INSERT into evaluation_of_complaints (user_id,content,score,crate_time,flg)
-        VALUE (#{userId},#{content},#{score},NOW(),#{flg})
+        INSERT into evaluation_of_complaints (user_id,content,score,crate_time,flg,path)
+        VALUE (#{userId},#{content},#{score},NOW(),#{flg},#{path})
     </insert>
     <update id="updateEvaOrComp" parameterType="EvaAndCompVO">
-        update evaluation_of_complaints set content=#{content},score=#{score}
+        update evaluation_of_complaints set content=#{content},score=#{score},path=#{path}
         where id=#{id}
     </update>
     <update id="replyEvaOrComp" >

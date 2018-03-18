@@ -6,14 +6,14 @@ export function getListEvaOrComp({flg}) {
         flg
     });
 }
-export function inserEvaOrComp({ userId,content,score,flg}) {
+export function inserEvaOrComp({ userId,content,score,flg,number}) {
     return post(`/evaOrComp/inserEvaOrComp`,{
-        userId,content,score,flg
+        userId,content,score,flg,number
     });
 }
-export function updateEvaOrComp({ id,content,score}) {
+export function updateEvaOrComp({ id,content,score,number}) {
     return put(`/evaOrComp/updateEvaOrComp/`+id,{
-        content,score
+        content,score,number
     });
 }
 export function delteEvaOrComp({ id}) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Modal, Table, Button, Input, Popconfirm, Tag, Form, Radio, Col, Row } from 'antd';
+import { Modal, Table, Button, Input, Popconfirm, Tag, Form, Radio, Col, Row, Upload, Icon } from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import MainLayout from '../MainLayout';
 import Popover from 'antd/lib/popover';
@@ -8,6 +8,7 @@ import { dataDict } from '../../utils/dataDict';
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const user = JSON.parse(sessionStorage.getItem('user'));
+const { TextArea } = Input;
 class Evaluation extends React.Component {
 
     constructor(props) {
@@ -19,7 +20,11 @@ class Evaluation extends React.Component {
             //评论详情
             evaDetails: false,
             //管理员回复
-            replyModel: false
+            replyModel: false,
+
+            previewVisible: false,
+            previewImage: '',
+            fileList: [],
         };
     }
     // // 改变页面
@@ -30,11 +35,20 @@ class Evaluation extends React.Component {
     //         query: { page }
     //     }));
     // }
+    handlePreview = (file) => {
+        this.setState({
+            previewImage: file.url || file.thumbUrl,
+            previewVisible: true,
+        });
+    }
+    handleChange = ({ fileList }) => this.setState({ fileList })
+    handleCancel = () => this.setState({ previewVisible: false })
+
     add = () => {
         this.props.form.resetFields();
         this.setState({
             modalVisible: true,
-            id: null, userAccount: null, userPassword: null, userName: null, userPhone: null
+            id: null, content: null, score: null, fileList: [], path: null
         })
     }
     Cancel = () => {
@@ -67,6 +81,7 @@ class Evaluation extends React.Component {
                             id: id,
                             content: values.content,
                             score: values.score,
+                            number: values.upload ? values.upload.fileList.length : 0,
                             callback: () => {
                                 this.setState({
                                     modalVisible: false
@@ -81,6 +96,7 @@ class Evaluation extends React.Component {
                             userId: user.id,
                             content: values.content,
                             score: values.score,
+                            number: values.upload ? values.upload.fileList.length : 0,
                             callback: () => {
                                 this.setState({
                                     modalVisible: false
@@ -93,20 +109,41 @@ class Evaluation extends React.Component {
         });
     }
     // 编辑
-    edit = (id, content, score) => {
+    edit = (id, content, score, path) => {
         let props = this.props;
+        let fileList = [];
+        let file = {
+            uid: -1,
+            name: 'xxx.png',
+            status: 'done',
+            url: path
+        }
+        fileList.push(file)
         props.form.resetFields();
         this.setState({
             modalVisible: true,
-            id, content, score
+            id, content, score, fileList, path
         });
+        if (!path) {
+            this.setState({
+                fileList: []
+            });
+        }
     }
-    details = (id, content, score, userName, reply, adminName) => {
+    details = (id, content, score, userName, reply, adminName, path) => {
+        let fileList = [];
+        let file = {
+            uid: -1,
+            name: 'xxx.png',
+            status: 'done',
+            url: path
+        }
+        fileList.push(file)
         let props = this.props;
         props.form.resetFields();
         this.setState({
             evaDetails: true,
-            id, content, score, userName, reply, adminName
+            id, content, score, userName, reply, adminName, fileList, path
         });
     }
     myEva = () => {
@@ -128,12 +165,20 @@ class Evaluation extends React.Component {
             type: 'evaluation/listInit',
         });
     }
-    reply = (id, content, score, userName) => {
+    reply = (id, content, score, userName, path,reply) => {
         let props = this.props;
+        let fileList = [];
+        let file = {
+            uid: -1,
+            name: 'xxx.png',
+            status: 'done',
+            url: path
+        }
+        fileList.push(file)
         props.form.resetFields();
         this.setState({
             replyModel: true,
-            id, content, score, userName
+            id, content, score, userName, fileList, path,textValue:null,reply
         });
     }
     replyCancel = () => {
@@ -201,25 +246,25 @@ class Evaluation extends React.Component {
                     <div>
                         {
                             user.id == record.userId ? <div>
-                                <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName) }}>详情</a>
+                                <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName, record.path) }}>详情</a>
                                 &nbsp;
-                                 <a onClick={() => { this.edit(record.id, record.content, record.score) }}>编辑</a>
+                                 <a onClick={() => { this.edit(record.id, record.content, record.score, record.path) }}>编辑</a>
                                 <Popconfirm title="确认删除?" onConfirm={() => { this.del(record.id) }}>
                                     <a style={{ marginLeft: 10 }}>删除</a>
                                 </Popconfirm></div> :
                                 this.state.myflg ?
                                     <div>
-                                        <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName) }}>详情</a>
+                                        <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName, record.path) }}>详情</a>
                                         &nbsp;
-                                <a onClick={() => { this.edit(record.id, record.content, record.record) }}>编辑</a>
+                                    <a onClick={() => { this.edit(record.id, record.content, record.score, record.path) }}>编辑</a>
                                         <Popconfirm title="确认删除?" onConfirm={() => { this.del(record.id) }}>
                                             <a style={{ marginLeft: 10 }}>删除</a>
                                         </Popconfirm></div> :
                                     user.flg == 1 ? <div>
-                                        <a onClick={() => { this.reply(record.id, record.content, record.score, record.userName) }}>回复</a>
+                                        <a onClick={() => { this.reply(record.id, record.content, record.score, record.userName, record.path,record.reply) }}>回复</a>
                                         &nbsp;
-                                    <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName) }}>详情</a>
-                                    </div> : <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName) }}>详情</a>
+                                    <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName, record.path) }}>详情</a>
+                                    </div> : <a onClick={() => { this.details(record.id, record.content, record.score, record.userName, record.reply, record.adminName, record.path) }}>详情</a>
 
                         }
 
@@ -233,14 +278,19 @@ class Evaluation extends React.Component {
             labelCol: { span: 5 },
             wrapperCol: { span: 16 },
         };
-
+        const uploadButton = (
+            <div>
+                <Icon type="plus" />
+                <div className="ant-upload-text">Upload</div>
+            </div>
+        );
         let { list } = props;
         var url = "/system/evaluationList";
         return (
             <MainLayout location={location} sider="system" url={url}>
                 <Modal
                     visible={this.state.modalVisible}
-                    title="添加评论"
+                    title="添加/编辑"
                     onOk={this.OK}
                     confirmLoading={props.loading}
                     onCancel={this.Cancel}>
@@ -256,6 +306,22 @@ class Evaluation extends React.Component {
                                     <Radio key="3" value={3}>差</Radio>
                                 </RadioGroup>)}
                         </FormItem>
+                        <FormItem label="上传图片" hasFeedback {...formItemLayout}>
+                            {getFieldDecorator('upload')(
+                                <Upload
+                                    action="/upload/picture"
+                                    listType="picture-card"
+                                    fileList={this.state.fileList}
+                                    onPreview={this.handlePreview}
+                                    onChange={this.handleChange}
+                                >
+                                    {this.state.fileList == null || this.state.fileList.length >= 1 ? null : uploadButton}
+                                </Upload>)}
+
+                        </FormItem>
+                        <Modal visible={this.state.previewVisible} footer={null} onCancel={this.handleCancel}>
+                            <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
+                        </Modal>
                         <FormItem label="内容" hasFeedback {...formItemLayout}>
                             {getFieldDecorator('content', {
                                 rules: [
@@ -264,7 +330,7 @@ class Evaluation extends React.Component {
                                     },
                                 ],
                                 initialValue: this.state.content || null
-                            })(<textarea rows={3} style={{ width: 300 }} />)}
+                            })(<TextArea rows={3} style={{ width: 300 }} />)}
                         </FormItem>
                     </Form>
                 </Modal>
@@ -289,9 +355,31 @@ class Evaluation extends React.Component {
                             <div className="gutter-box">评论: {this.state.content}</div>
                         </Col>
                     </Row>
+                    {
+                        this.state.path ?
+                            <div>
+                                <Row gutter={16}>
+                                    <Col className="gutter-row" span={4}>
+                                        <div className="gutter-box">图片: <Upload
+                                            action="/upload/picture"
+                                            listType="picture-card"
+                                            fileList={this.state.fileList}
+                                            onPreview={this.handlePreview}
+                                            onChange={this.handleChange}
+                                            onRemove={false}
+                                        >
+                                            {this.state.fileList.length >= 1 ? null : uploadButton}
+                                        </Upload></div>
+                                    </Col>
+                                </Row>
+                                <Modal visible={this.state.previewVisible} footer={null} onCancel={this.handleCancel}>
+                                    <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
+                                </Modal>
+                            </div> : null
+                    }
                     <Row gutter={16}>
-                        <Col className="gutter-row" span={4}>
-                            <div className="gutter-box">回复: <textarea rows={3} style={{ width: 300 }} onChange={this.text} /></div>
+                        <Col className="gutter-row" span={16}>
+                            <div className="gutter-box">回复: <TextArea rows={4} style={{ width: 500 }} value={this.state.textValue != null || this.state.textValue != undefined ? this.state.textValue : this.state.reply} onChange={this.text} /></div>
                         </Col>
                     </Row>
 
@@ -319,6 +407,29 @@ class Evaluation extends React.Component {
                             <div className="gutter-box">评论: {this.state.content}</div>
                         </Col>
                     </Row>
+                    {
+                        this.state.path ?
+                            <div>
+                                <Row gutter={16}>
+                                    <Col className="gutter-row" span={4}>
+                                        <div className="gutter-box">图片: <Upload
+                                            action="/upload/picture"
+                                            listType="picture-card"
+                                            fileList={this.state.fileList}
+                                            onPreview={this.handlePreview}
+                                            onChange={this.handleChange}
+                                            onRemove={false}
+                                        >
+                                            {this.state.fileList == null || this.state.fileList.length >= 1 ? null : uploadButton}
+                                        </Upload></div>
+                                    </Col>
+                                </Row>
+                                <Modal visible={this.state.previewVisible} footer={null} onCancel={this.handleCancel}>
+                                    <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
+                                </Modal>
+                            </div> : null
+                    }
+
                     <Row gutter={16} >
                         <Col className="gutter-row" >
                             <div className="gutter-box"> 管理员: {this.state.adminName}</div>
@@ -334,10 +445,9 @@ class Evaluation extends React.Component {
                     {
                         user.flg == 0 ? <div><Button onClick={this.myEva} className="pull-left" >我的评论</Button>
                             <Button onClick={this.allEva} className="pull-left" >所有评论</Button>
+                            <Button onClick={this.add} className="pull-right" type="primary" icon="plus">新增</Button>
                         </div> : ""
                     }
-
-                    <Button onClick={this.add} className="pull-right" type="primary" icon="plus">新增</Button>
                 </div>
                 <div className="box20" />
                 <Table

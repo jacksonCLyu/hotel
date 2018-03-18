@@ -16,6 +16,10 @@ import { MyOrder } from './system/MyOrder';
 import { MyRoom } from './system/MyRoom';
 import { Evaluation } from './system/Evaluation';
 import { Complaints } from './system/Complaints';
+
+import { OtherOrders } from './system/OtherOrders';
+
+import { CasualDiet } from './system/CasualDiet';
 const FormItem = Form.Item;
 class MainLayout extends React.Component {
     state = {

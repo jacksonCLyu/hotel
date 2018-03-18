@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.graduation.design.hotel.dao.ICasualDietDao">
+    <sql id="casualDiet">
+        id,name,price,path,crate_time AS crateTime,update_time as updateTime
+    </sql>
+    <select id="getListCasualDiet" resultType="CasualDietVO">
+        select
+        <include refid="casualDiet"/>
+        from casual_diet;
+    </select>
+
+    <select id="getCasualDiet" resultType="CasualDietVO" parameterType="int">
+        select
+        <include refid="casualDiet"/>
+        from casual_diet where id=#{id};
+    </select>
+
+    <insert id="insertCasualDiet" parameterType="CasualDietVO" >
+        INSERT INTO casual_diet (name,price,path,crate_time)
+        values (#{name}, #{price}, #{path},NOW());
+    </insert>
+    <update id="updateCasualDiet" parameterType="CasualDietVO">
+        UPDATE casual_diet
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="path != null">
+                path = #{path},
+            </if>
+            update_time=NOW()
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteCasualDiet" parameterType="int">
+        DELETE FROM  casual_diet WHERE id=#{id}
+    </delete>
+</mapper>

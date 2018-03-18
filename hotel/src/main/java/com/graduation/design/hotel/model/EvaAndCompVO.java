@@ -38,7 +38,14 @@ public class EvaAndCompVO extends BaseVO {
      * 1:评价2:投诉
      */
     private Integer flg;
-
+    /**
+     * 图片的路径
+     */
+    private String path;
+    /**
+     * 前端上传图片的数量
+     */
+    private Integer number;
     public Integer getUserId() {
         return userId;
     }
@@ -103,6 +110,22 @@ public class EvaAndCompVO extends BaseVO {
         this.adminName = adminName;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     @Override
     public String toString() {
         return "EvaAndCompVO{" +
@@ -114,6 +137,8 @@ public class EvaAndCompVO extends BaseVO {
                 ", adminId=" + adminId +
                 ", adminName='" + adminName + '\'' +
                 ", flg=" + flg +
+                ", path='" + path + '\'' +
+                ", number=" + number +
                 '}';
     }
 }

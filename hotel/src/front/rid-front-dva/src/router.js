@@ -43,6 +43,15 @@ function RouterConfig({ history, app }) {
     app,
     component: () => import('./components/system/Complaints'),
   })
+  const otherOrders = dynamic({
+    app,
+    component: () => import('./components/system/OtherOrders'),
+  })
+
+  const casualDiet = dynamic({
+    app,
+    component: () => import('./components/system/CasualDiet'),
+  })
   return (
     <Router history={history}>
       <Switch>
@@ -57,6 +66,8 @@ function RouterConfig({ history, app }) {
         <Route path="/system/myRoom" exact component={myRoom}/>
         <Route path="/system/evaluationList" exact component={evaluation}/>
         <Route path="/system/complaintsList" exact component={complaints}/>
+        <Route path="/system/otherOrders" exact component={otherOrders}/>
+        <Route path="/system/casualDiet" exact component={casualDiet}/>
       </Switch>
     </Router>
   );

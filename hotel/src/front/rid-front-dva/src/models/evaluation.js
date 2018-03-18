@@ -30,15 +30,15 @@ export default {
                 }
             });
         },
-        *inserEvaOrComp({ payload: {userId,content,score,flg,callback} }, { call, put }) {
-            yield call(inserEvaOrComp,{userId,content,score,flg:1});
+        *inserEvaOrComp({ payload: {userId,content,score,flg,number,callback} }, { call, put }) {
+            yield call(inserEvaOrComp,{userId,content,score,flg:1,number});
             yield put({
                 type: 'listInit',
             });
             callback();
         },
-        *updateEvaOrComp({ payload: {id,content,score,callback} }, { call, put }) {
-            yield call(updateEvaOrComp,{id,content,score});
+        *updateEvaOrComp({ payload: {id,content,score,number,callback} }, { call, put }) {
+            yield call(updateEvaOrComp,{id,content,score,number});
             yield put({
                 type: 'listInit',
             });
